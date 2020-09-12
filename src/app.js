@@ -1,13 +1,11 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const mentionsRoutes = require('./routes/mentions-routes');
 
 require('dotenv').config();
 
 // App
 const app = express();
 
-app.use('/mentions', mentionsRoutes);
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
@@ -48,5 +46,8 @@ const Mentions = require('./models/mentions');
 // Load routes
 const indexRoutes = require('./routes/index-routes');
 app.use('/', indexRoutes);
+
+const mentionsRoutes = require('./routes/mentions-routes');
+app.use('/mentions', mentionsRoutes);
 
 module.exports = app;

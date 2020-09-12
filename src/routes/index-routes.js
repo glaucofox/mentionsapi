@@ -1,11 +1,8 @@
 const express = require('express');
 const router = express.Router();
+const mentionsController = require('../controllers/mentions-controller');
 
-router.get('/', (req, res, next) => {
-    res.status(200).send({
-        title: 'MentionsAPI',
-        version: '1.0.0'
-    });
-});
+router.get('/', mentionsController.listMentions);
+router.post('/', mentionsController.createMention);
 
 module.exports = router;

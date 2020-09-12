@@ -1,10 +1,13 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const mentionsRoutes = require('./routes/mentions-routes');
+
 require('dotenv').config();
 
 // App
 const app = express();
 
+app.use('/mentions', mentionsRoutes);
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 

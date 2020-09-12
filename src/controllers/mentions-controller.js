@@ -1,3 +1,4 @@
+const { validationResult } = require('express-validator');
 const repository = require('../repositories/mentions-repositories');
 
 // list
@@ -12,6 +13,13 @@ exports.listMentions = async (req, res) => {
 
 // create
 exports.createMention = async(req, res) => {
+
+    const { errors } = validationResult(req);
+
+    if (errors.length > 0) {
+        return res.status(400).send({message: errors});
+    }
+
     try {
         await repository.createMention({
             friend: req.body.friend,
@@ -19,7 +27,7 @@ exports.createMention = async(req, res) => {
         });
         res.status(201).send({message: 'Menção cadastrada com sucesso'});
 
-    } catch (error) {
-        res.status(500).send({message: 'Falha ao cadastrar a menção: ' + error});
+    } catch (e) {
+        res.status(500).send({message: 'Falha ao cadastrar a menção: ' + e});
     }
 };

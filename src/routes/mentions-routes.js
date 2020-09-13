@@ -20,4 +20,4 @@ router.put('/:id', [
 module.exports = router;
 
 // delete
-
+router.delete('/:id', mentionsController.deleteMention);

@@ -1,4 +1,5 @@
 const { validationResult } = require('express-validator');
+const mentions = require('../models/mentions');
 const repository = require('../repositories/mentions-repositories');
 
 // list
@@ -53,5 +54,12 @@ exports.updateMention = async(req, res) => {
 
 // delete
 exports.deleteMention = async(req, res) => {
-    
+    try {
+        await repository.deleteMention(req.params.id);
+        res.status(200).send({
+            message: 'Menção removida com sucesso!'
+        });
+    } catch (e) {
+        res.status(500).send({message: 'Falha ao remover menção!'});
+    }
 };
